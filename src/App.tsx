@@ -4,10 +4,11 @@ import Navbar from "./components/Navbar/Navbar";
 import Homepage from "./pages/Homepage/Homepage";
 import Components from "./pages/Blog/Components";
 import ParentComponent from "./pages/States/ParentComponent";
-import ComponentLifecycle from "./pages/ComponentLifecycle/ComponentLifecycle";
-import Routing from "./pages/Routing/Routing";
-import Context from "./pages/ContextAPI/Context";
+import ComponentLifecycle from "./pages/Blog/ComponentLifecycle";
+import Routing from "./pages/Blog/Routing";
+import Context from "./pages/Blog/Context";
 import { ThemeProvider } from "./context/theme-context";
+import Hooks from "./pages/Blog/Hooks";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/lifecycle" element={<ComponentLifecycle />} />
           <Route path="/routing" element={<Routing />} />
           <Route path="/context" element={<Context />} />
+          <Route path="/hooks" element={<Hooks />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
