@@ -1,5 +1,5 @@
 import React from "react";
-import { useCounterReducer } from "../../reducer/counterReducer";
+import { useCounterReducer } from "../../hooks/counterReducer";
 
 type HooksProps = {};
 
