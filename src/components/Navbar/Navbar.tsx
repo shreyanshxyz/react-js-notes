@@ -10,15 +10,6 @@ const Navbar: React.FC<NavbarProps> = () => {
         <Link to="/" className="nav__link">
           Home
         </Link>
-        <Link className="nav__link" to="/">
-          Home 2
-        </Link>
-        <Link className="nav__link" to="/">
-          Home 3
-        </Link>
-        <Link className="nav__link" to="/">
-          API Fetching
-        </Link>
       </div>
       <div className="navbar__right">
         <img
