@@ -1,7 +1,9 @@
 import React, { useRef, useState } from "react";
+
 import { useCounterReducer } from "../../hooks/counterReducer";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ExpensiveComponent from "../../hooks/memoHook";
 
 type HooksProps = {};
 
@@ -12,6 +14,7 @@ type catFact = {
 const Hooks: React.FC<HooksProps> = () => {
   const [state, dispatch] = useCounterReducer();
   const [catFact, setCatFact] = useState<catFact | null>(null);
+  const [numbers, setNumbers] = useState([1, 2, 3, 4, 5]);
 
   async function getViaAxios() {
     const res = await axios.get("https://catfact.ninja/fact");
@@ -375,11 +378,127 @@ const Hooks: React.FC<HooksProps> = () => {
       </div>
       <hr />
       <h4 className="blog__subheading">useMemo</h4>
-      <div className="blog__text"></div>
+      <div className="blog__text">
+        The main idea behind using useMemo in this example is to optimize
+        performance. Calculating the sum of an array is an example of an
+        expensive computation. By using useMemo, you ensure that the sum is only
+        recalculated when the data (in this case, numbers) changes, preventing
+        unnecessary calculations and improving the component's performance.
+        <ol>
+          <li>
+            Import Statements: Import the necessary modules from React. useState
+            is a hook for managing state, and useMemo is a hook for memoization.
+            <pre className="code__snippet">
+              <code>{useMemoSnippet1}</code>
+            </pre>
+          </li>
+          <li>
+            Interface Definition: Define an interface named Props that specifies
+            the expected properties for the ExpensiveComponent. In this case, it
+            expects a prop named data which should be an array of numbers.
+            <pre className="code__snippet">
+              <code>{useMemoSnippet2}</code>
+            </pre>
+          </li>
+          <li>
+            Component Definition: Define a functional component named
+            ExpensiveComponent that takes the Props interface as its generic
+            type. It receives the data prop destructured from its props.
+            <pre className="code__snippet">
+              <code>{useMemoSnippet3}</code>
+            </pre>
+          </li>
+          <li>
+            useMemo Hook: This is the heart of the example. The useMemo hook is
+            used to memoize the result of a computation. In this case, it
+            calculates the sum of the numbers in the data array.
+            <ul>
+              <li>
+                The first argument to useMemo is a function that performs the
+                expensive computation (in this case, the sum calculation).
+              </li>
+              <li>
+                The second argument is an array of dependencies. The memoized
+                value (sum) will only be recalculated when one of the
+                dependencies in this array changes. In this case, it's [data],
+                so if the data array changes, the sum will be recalculated.
+              </li>
+              <li>
+                The console.log('Calculating sum...') is included to demonstrate
+                that the sum calculation only happens when the data changes.
+              </li>
+            </ul>
+            <pre className="code__snippet">
+              <code>{useMemoSnippet4}</code>
+            </pre>
+          </li>
+          <li>
+            Component Rendering: The ExpensiveComponent renders a simple div
+            containing a paragraph <code>p</code> that displays the calculated
+            sum.
+            <pre className="code__snippet">
+              <code>{useMemoSnippet5}</code>
+            </pre>
+          </li>
+          <li>
+            App Component: Define another functional component named App. Inside
+            it, use the useState hook to initialize a state variable numbers
+            with an array of numbers, and setNumbers as the function to update
+            this state.
+            <pre className="code__snippet">
+              <code>{useMemoSnippet6}</code>
+            </pre>
+          </li>
+        </ol>
+        <div className="blog__text">
+          <h4 className="blog__subheading">
+            Here's the above example in the code form:
+          </h4>
+          <ExpensiveComponent data={numbers} />
+          <button
+            className="state__button reset"
+            onClick={() =>
+              setNumbers([
+                ...numbers,
+                Math.floor(Math.random() * (2000 - 100) + 100),
+              ])
+            }
+          >
+            Add Number
+          </button>
+        </div>
+        <hr />
+      </div>
     </div>
   );
 };
 export default Hooks;
+
+const useMemoSnippet1 = `import React, { useState, useMemo } from 'react';`;
+const useMemoSnippet2 = `interface Props {
+  data: number[];
+}`;
+const useMemoSnippet3 = `const ExpensiveComponent: React.FC<Props> = ({ data }) => {
+`;
+const useMemoSnippet4 = `  const sum = useMemo(() => {
+    console.log('Calculating sum...');
+    return data.reduce((acc, curr) => acc + curr, 0);
+  }, [data]);`;
+const useMemoSnippet5 = `  return (
+    <div>
+      <p>Sum: {sum}</p>
+    </div>
+  );
+};`;
+const useMemoSnippet6 = `  return (
+    <div>
+      <ExpensiveComponent data={numbers} />
+      <button onClick={() => setNumbers([...numbers, Math.random()])}>
+        Add Number
+      </button>
+    </div>
+  );
+};`;
 
 const useRefSnippet1 = `import React, { useRef } from 'react';`;
 const useRefSnippet2 = `const myRef = useRef(initialValue);`;
