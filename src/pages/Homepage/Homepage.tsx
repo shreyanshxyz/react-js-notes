@@ -20,6 +20,9 @@ const Homepage: React.FC<HomepageProps> = () => {
         <Link className="index__link" to="/routing">
           Routing & Navigation
         </Link>
+        <Link className="index__link" to="/context">
+          Context & Context API
+        </Link>
       </div>
     </div>
   );
