@@ -1,0 +1,55 @@
+.navbar__container {
+  background-color: black;
+  display: flex;
+  padding: 10px 30px 10px 30px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: lightgoldenrodyellow;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.navbar__left {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.navbar__right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  color: lightgoldenrodyellow;
+}
+
+.nav__avatar {
+  max-width: 40px;
+  border-radius: 10%;
+}
+
+.nav__name {
+  font-weight: 600;
+}
+
+.nav__button {
+  all: unset;
+  padding: 7px 5px 7px 5px;
+  font-size: small;
+  font-weight: 600;
+  border-radius: 5%;
+  text-shadow: none;
+}
+
+.logout {
+  background-color: crimson;
+}
+
+.logout:hover {
+  background-color: #b80000;
+}
