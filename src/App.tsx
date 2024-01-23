@@ -7,20 +7,23 @@ import ParentComponent from "./pages/States/ParentComponent";
 import ComponentLifecycle from "./pages/ComponentLifecycle/ComponentLifecycle";
 import Routing from "./pages/Routing/Routing";
 import Context from "./pages/ContextAPI/Context";
+import { ThemeProvider } from "./context/theme-context";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/components" element={<Components />} />
-        <Route path="/state" element={<ParentComponent />} />
-        <Route path="/lifecycle" element={<ComponentLifecycle />} />
-        <Route path="/routing" element={<Routing />} />
-        <Route path="/context" element={<Context />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/components" element={<Components />} />
+          <Route path="/state" element={<ParentComponent />} />
+          <Route path="/lifecycle" element={<ComponentLifecycle />} />
+          <Route path="/routing" element={<Routing />} />
+          <Route path="/context" element={<Context />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

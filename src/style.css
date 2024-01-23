@@ -1,3 +1,26 @@
+[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: black;
+  --heading-color: black;
+  --code-bg-color: lightgray;
+  --code-color: #191919;
+  --highlight-color: rgb(255, 149, 110);
+}
+
+/* Dark mode styles */
+[data-theme="dark"] {
+  --bg-color: #1f1c1c;
+  --text-color: #ffffff;
+  --heading-color: #dddddd;
+  --code-bg-color: #191919;
+  --code-color: #bed754;
+  --highlight-color: rgb(166, 78, 46);
+}
+
+/* HomePage */
+body {
+  background-color: var(--bg-color);
+}
 .homepage__container {
   padding: 100px 30% 0 30%;
   display: flex;
@@ -7,11 +30,13 @@
 }
 
 .home__heading {
+  color: var(--heading-color);
   font-size: xx-large;
   font-weight: bold;
 }
 
 .home__index {
+  color: var(--text-color);
   padding-top: 20px;
   padding-left: 30px;
 }
@@ -19,12 +44,15 @@
 .index__link {
   display: list-item;
   list-style: lower-greek;
-  color: black;
+  color: var(--text-color);
   text-underline-offset: 2px;
   padding-bottom: 10px;
   font-size: large;
 }
 
+/* HomePage End */
+
+/* Blog Start */
 .blog__container {
   padding-top: 40px;
   padding-left: 10%;
@@ -32,16 +60,19 @@
 }
 
 .blog__heading {
+  color: var(--heading-color);
   font-size: xx-large;
   font-weight: 900;
 }
 
 .blog__subheading {
+  color: var(--heading-color);
   font-size: larger;
   font-weight: 800;
 }
 
 .blog__text {
+  color: var(--text-color);
   padding-top: 10px;
 }
 
@@ -58,14 +89,21 @@
   max-height: 400px;
 }
 
+code {
+  color: var(--code-color);
+}
+
+pre {
+  background-color: var(--code-bg-color);
+}
+
 .code__snippet {
-  background-color: lightgray;
   font-weight: 400;
-  overflow: auto;
+  text-wrap: wrap;
 }
 
 .highlight {
-  background-color: rgb(255, 149, 110);
+  background-color: var(--highlight-color);
   border-radius: 5px;
 }
 
@@ -84,7 +122,7 @@
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
-  color: white;
+  color: var(--bg-color);
   font-weight: 800;
 }
 
@@ -110,3 +148,49 @@
 .reset:hover {
   background: rgb(209, 135, 51);
 }
+
+/* Blog End */
+
+/* Theme Slider */
+
+.mode-switch label {
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  position: relative;
+  margin-left: 10px;
+}
+
+.mode-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.mode-switch input:checked + .slider {
+  background-color: #2196f3;
+}
+
+.mode-switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.mode-switch input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* Theme Slider End */
