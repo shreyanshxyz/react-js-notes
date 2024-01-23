@@ -22,6 +22,9 @@ const Homepage: React.FC<HomepageProps> = () => {
         <Link className="index__link" to="/context">
           Context & Context API
         </Link>
+        <Link className="index__link" to="/hooks">
+          React Hooks
+        </Link>
       </div>
     </div>
   );
