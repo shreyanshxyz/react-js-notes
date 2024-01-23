@@ -17,6 +17,9 @@ const Homepage: React.FC<HomepageProps> = () => {
         <Link className="index__link" to="/lifecycle">
           Component Lifecycle
         </Link>
+        <Link className="index__link" to="/routing">
+          Routing & Navigation
+        </Link>
       </div>
     </div>
   );
