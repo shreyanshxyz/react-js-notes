@@ -1,10 +1,47 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useCounterReducer } from "../../hooks/counterReducer";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 type HooksProps = {};
 
+type catFact = {
+  fact: string;
+};
+
 const Hooks: React.FC<HooksProps> = () => {
   const [state, dispatch] = useCounterReducer();
+  const [catFact, setCatFact] = useState<catFact | null>(null);
+
+  async function getViaAxios() {
+    const res = await axios.get("https://catfact.ninja/fact");
+    const data = res.data;
+    setCatFact(data);
+  }
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleButtonClick = () => {
+    inputRef.current!.focus(); // Focuses the input element
+  };
+
+  const renderCount = useRef(0);
+
+  // This does not trigger a re-render when the value changes
+  renderCount.current++;
+
+  const timerId = useRef<number>(0);
+
+  const startTimer = () => {
+    timerId.current = setInterval(() => {
+      console.log("Timer tick");
+    }, 1000);
+  };
+
+  const stopTimer = () => {
+    clearInterval(timerId.current);
+  };
+
   return (
     <div className="blog__container">
       <h1 className="blog__heading">React Hooks</h1>
@@ -13,6 +50,7 @@ const Hooks: React.FC<HooksProps> = () => {
         features. Hooks allow us to "hook" into React features such as state and
         lifecycle methods.
       </div>
+      <hr />
       <h4 className="blog__subheading">useState</h4>
       <div className="blog__text">
         The useState hook is a fundamental hook in React that allows you to add
@@ -61,6 +99,7 @@ const Hooks: React.FC<HooksProps> = () => {
           </pre>
         </ol>
       </div>
+      <hr />
       <h4 className="blog__subheading">useReducer</h4>
       <div className="blog__text">
         The useReducer hook is another important state management hook in React
@@ -157,18 +196,259 @@ const Hooks: React.FC<HooksProps> = () => {
           </button>
         </div>
       </div>
+      <hr />
       <h4 className="blog__subheading">useEffect</h4>
-      <div className="blog__text"></div>
+      <div className="blog__text">
+        The useEffect hook is a crucial part of React that allows you to perform
+        side effects in functional components. Side effects can include data
+        fetching, DOM manipulation, and more. Here's a detailed explanation of
+        the useEffect hook for someone new to React:
+        <ol>
+          <li>
+            First, you need to import the useEffect hook from the React library.
+            You typically do this at the beginning of your functional component
+            file:
+            <pre className="code__snippet">
+              <code>{useEffectSnippet1}</code>
+            </pre>
+          </li>
+          <li>
+            Side effects in React are operations that occur after the initial
+            rendering of your component. These operations might include fetching
+            data from an API, interacting with the browser's DOM, setting
+            timers, or subscribing to external data sources.
+            <br />
+            The useEffect hook allows you to execute side effects in functional
+            components. You place it inside your component, and it takes two
+            arguments: a function (the effect) and an optional array of
+            dependencies.
+            <br />
+            The second argument is an array of dependencies. It tells React when
+            the effect should run. If the array is empty <code>([])</code>, the
+            effect runs after every render. If you include dependencies, it runs
+            when any of the dependencies change.
+            <pre className="code__snippet">
+              <code>{useEffectSnippet2}</code>
+            </pre>
+          </li>
+          <li>
+            Here's an example of using useEffect to fetch data from an API when
+            a component mounts:
+            <pre className="code__snippet">
+              <code>{useEffectSnippet3}</code>
+            </pre>
+          </li>
+          <li>
+            You can also return a cleanup function from the effect. This
+            function will be executed when the component unmounts or when the
+            dependencies change before the effect runs again.
+            <pre className="code__snippet">
+              <code>{useEffectSnippet4}</code>
+            </pre>
+          </li>
+        </ol>
+        <h4>
+          Here's a working example of the useEffect hook. <br />
+          Cat Fact for Today is:{" "}
+          <i>
+            {catFact
+              ? catFact.fact
+              : "Click the button below to get the fact.."}
+          </i>
+        </h4>
+        <div className="button__container">
+          <button className="state__button reset" onClick={getViaAxios}>
+            Get
+          </button>
+        </div>
+      </div>
+      <hr />
       <h4 className="blog__subheading">useRef</h4>
-      <div className="blog__text"></div>
+      <div className="blog__text">
+        The useRef hook in React is a powerful tool that allows you to access
+        and interact with DOM elements and persist values across renders without
+        causing re-renders. It is especially useful for accessing DOM nodes,
+        managing focus, and storing mutable values.
+        <ol>
+          <li>
+            First, you need to import the useRef hook from the React library.
+            You typically do this at the beginning of your functional component
+            file:
+            <pre className="code__snippet">
+              <code>{useRefSnippet1}</code>
+            </pre>
+          </li>
+          <li>
+            You can create a ref by calling the <code>useRef()</code> function.
+            The useRef hook returns a mutable ref object, which has a .current
+            property. You can assign any value to .current and it will persist
+            across renders.
+            <pre className="code__snippet">
+              <code>{useRefSnippet2}</code>
+            </pre>
+          </li>
+          <li>
+            One of the primary use cases of useRef is to access and interact
+            with DOM elements. You can attach a ref to a DOM element by passing
+            the ref attribute to the JSX element.
+            <br />
+            In this example, inputRef is attached to the input element. When the
+            button is clicked, the input element receives focus.
+            <pre className="code__snippet">
+              <code>{useRefSnippet3}</code>
+            </pre>
+          </li>
+          <li>
+            Ref values persist across renders. Unlike state variables, changing
+            the ref value doesn't trigger a re-render of the component.
+            <br />
+            In this example, renderCount is a ref object used to keep track of
+            how many times the component renders. The component doesn't
+            re-render when renderCount.current changes.
+            <pre className="code__snippet">
+              <code>{useRefSnippet4}</code>
+            </pre>
+          </li>
+          <li>
+            You can use useRef to store mutable values that don't trigger
+            re-renders when they change. For example, you can store a function
+            or an object that persists across renders.
+            <br />
+            In this example, timerId is a ref used to store the ID returned by
+            setInterval, allowing you to clear the interval later.
+            <pre className="code__snippet">
+              <code>{useRefSnippet5}</code>
+            </pre>
+          </li>
+        </ol>
+        <div>
+          <h4>Here's an example of the inputRef</h4>
+          <input
+            style={{ height: "20px", marginRight: "5px" }}
+            ref={inputRef}
+            type="text"
+          />
+          <button onClick={handleButtonClick} className="state__button reset">
+            Focus Input
+          </button>
+        </div>
+        <div>
+          <h4>Here's an example of the persisting value through re renders</h4>
+          <p>Component rendered {renderCount.current} times.</p>
+        </div>
+        <div>
+          <h4>
+            Here's an example of the Storing Mutable Values (Check Console)
+          </h4>
+          <button className="state__button increment" onClick={startTimer}>
+            Start Timer
+          </button>
+          <button className="state__button decrement" onClick={stopTimer}>
+            Stop Timer
+          </button>
+        </div>
+      </div>
+      <hr />
       <h4 className="blog__subheading">useContext</h4>
-      <div className="blog__text"></div>
+      <div className="blog__text">
+        The useContext hook in React is a way to access and use context values
+        in functional components. Context is a mechanism for sharing data, like
+        a global state, between components without having to pass props through
+        the component tree manually.
+        <br />
+        <b>We have already implemented useContext in the Dark/Light Mode</b>
+        <p>
+          You can check it out here:{" "}
+          <Link
+            to={"/context"}
+            style={{
+              all: "unset",
+              cursor: "pointer",
+              fontWeight: 800,
+              textDecoration: "underline",
+              textUnderlineOffset: "3px",
+            }}
+          >
+            React Context API
+          </Link>
+        </p>
+      </div>
+      <hr />
       <h4 className="blog__subheading">useMemo</h4>
       <div className="blog__text"></div>
     </div>
   );
 };
 export default Hooks;
+
+const useRefSnippet1 = `import React, { useRef } from 'react';`;
+const useRefSnippet2 = `const myRef = useRef(initialValue);`;
+const useRefSnippet3 = `function MyComponent() {
+  const inputRef = useRef(null);
+
+  const handleButtonClick = () => {
+    inputRef.current.focus(); // Focuses the input element
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+      <button onClick={handleButtonClick}>Focus Input</button>
+    </div>
+  );
+}`;
+const useRefSnippet4 = `function MyComponent() {
+  const renderCount = useRef(0);
+
+  // This does not trigger a re-render when the value changes
+  renderCount.current++;
+
+  return <p>Component rendered {renderCount.current} times.</p>;
+}`;
+const useRefSnippet5 = `function MyComponent() {
+  const timerId = useRef(null);
+
+  const startTimer = () => {
+    timerId.current = setInterval(() => {
+      console.log('Timer tick');
+    }, 1000);
+  };
+
+  const stopTimer = () => {
+    clearInterval(timerId.current);
+  };
+
+  return (
+    <div>
+      <button onClick={startTimer}>Start Timer</button>
+      <button onClick={stopTimer}>Stop Timer</button>
+    </div>
+  );
+}`;
+
+const useEffectSnippet1 = `import React, { useEffect } from 'react';`;
+const useEffectSnippet2 = `useEffect(() => {
+  // Side effect code goes here
+}, [dependencies]);`;
+const useEffectSnippet3 = `  const [catFact, setCatFact] = useState<catFact | null>(null);
+
+  async function getViaAxios() {
+    const res = await axios.get("https://catfact.ninja/fact");
+    const data = res.data;
+    setCatFact(data);
+  }
+
+  useEffect(() => {
+    getViaAxios();
+  }, []);`;
+const useEffectSnippet4 = `useEffect(() => {
+  // Side effect code goes here
+
+  // Cleanup function (optional)
+  return () => {
+    // Code to clean up side effects (e.g., unsubscribe from a subscription)
+  };
+}, [dependencies]);`;
 
 const useReducerSnippet1 = `import React, { useReducer } from 'react';`;
 const useReducerSnippet2 = `type ActionType = 'INCREMENT' | 'DECREMENT';`;
