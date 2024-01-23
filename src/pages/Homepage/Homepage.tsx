@@ -28,6 +28,9 @@ const Homepage: React.FC<HomepageProps> = () => {
         <Link className="index__link" to="/hocs">
           React Higher Order Components
         </Link>
+        <Link className="index__link" to="/axiosvsfetch">
+          Axios vs. Fetch
+        </Link>
       </div>
     </div>
   );
