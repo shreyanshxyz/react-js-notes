@@ -1,5 +1,4 @@
 import React from "react";
-import "./style.css";
 type RoutingProps = {};
 
 const Routing: React.FC<RoutingProps> = () => {

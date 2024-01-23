@@ -1,5 +1,4 @@
 import React from "react";
-import "./style.css";
 type ContextProps = {};
 
 const Context: React.FC<ContextProps> = () => {
