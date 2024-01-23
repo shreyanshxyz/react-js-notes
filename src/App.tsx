@@ -9,6 +9,7 @@ import Routing from "./pages/Blog/Routing";
 import Context from "./pages/Blog/Context";
 import { ThemeProvider } from "./context/theme-context";
 import Hooks from "./pages/Blog/Hooks";
+import HigherOrderComponents from "./pages/Blog/HigherOrderComponents";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/routing" element={<Routing />} />
           <Route path="/context" element={<Context />} />
           <Route path="/hooks" element={<Hooks />} />
+          <Route path="/hocs" element={<HigherOrderComponents />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

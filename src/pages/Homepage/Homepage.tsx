@@ -25,6 +25,9 @@ const Homepage: React.FC<HomepageProps> = () => {
         <Link className="index__link" to="/hooks">
           React Hooks
         </Link>
+        <Link className="index__link" to="/hocs">
+          React Higher Order Components
+        </Link>
       </div>
     </div>
   );
